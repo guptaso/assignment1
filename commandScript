@@ -1,0 +1,60 @@
+# setting up - create group directory and place for files
+cd /scratch/spring2018/group29
+mkdir assignment1
+cd assignment1
+
+# get the yocto project 
+git clone git://git.yoctoproject.org/linux-yocto-3.19
+cd linux-yocto-3.19
+
+# check if version tag is available
+git tag
+
+# switch to version tag 3.19.2
+git checkout v3.19.2
+
+# setting up environment variable
+source /scratch/opt/environment-setup-i586-poky-linux.csh
+
+# setting up .config 
+cp /scratch/files/config-3.19.2-yocto-standard .
+mv config-3.19.2-yocto-standard .config
+
+# copy some files over
+cp /scratch/files/bzImage-qemux86.bin .
+cp /scratch/files/core-image-lsb-sdk-qemux86.ext4 .
+
+# builds kernal 
+# used defconfig which builds according to system architecture 
+make defconfig
+make -j4 all
+
+# on another terminal, set up environment 
+source /scratch/opt/environment-setup-i586-poky-linux.csh
+
+# run qemu, note ???? was replaced with 5529, (5500 + 29)
+qemu-system-i386 -gdb tcp::5529 -S -nographic -kernel bzImage-qemux86.bin -drive | \
+file=core-image-lsb-sdk-qemux86.ext4,if=virtio -enable-kvm -net none -usb | \
+-localtime --no-reboot --append "root=/dev/vda rw console=ttyS0 debug"
+
+# back to the original terminal - run gdb
+gdb
+
+# in other terminal, we specified port to be 5529, so connect to it here
+target remote:5529
+continue
+
+# now looking at the other terminal, the kernal boots as there is alot of 
+# 	text showing it start up
+# the kernal then wants us to login, according to assignment description, 
+# 	login to root with no password
+root
+
+# now the kernal has started
+# since we have the --no-reboot flag, we can type reboot and it should 
+# 	exit and NOT reboot
+reboot
+
+# this in turn exits the kernal and when we go back to the terminal with the gdb, 
+# 	we see that the process stopped indicatting that we were able to connect 
+# 	and disconnect with the VM

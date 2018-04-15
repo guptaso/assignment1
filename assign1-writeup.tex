@@ -9,6 +9,10 @@
 \usepackage[utf8]{inputenc}
 \fontfamily{cmss}
 
+% used for bash script
+\usepackage{listings}
+\usepackage{xcolor}
+
 \usepackage{setspace} \singlespacing
 
 \title{Assignment 1}
@@ -27,6 +31,19 @@ insert some abstract stuff here...
 \newpage 
 
 \section{Command Log}
+\lstset{
+commentstyle=\color{green},
+keepspaces=true,
+keywordstyle=\color{blue},
+%numbers=left,
+%numbersep=5pt,
+%numberstyle=\tiny\color{gray},
+rulecolor=\color{black},
+stringstyle=\color{orange},
+%title=\lstname
+}
+
+\lstinputlisting[language=bash]{commandScript}
 
 \section{QEMU Flag Explanation}
 
