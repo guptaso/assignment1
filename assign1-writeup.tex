@@ -46,17 +46,72 @@ stringstyle=\color{orange},
 \lstinputlisting[language=bash]{commandScript}
 
 \section{QEMU Flag Explanation}
+\begin{itemize}
+%remember to cite....
+\item{-gdb tcp::5529 -s \ -kernal bzImage-qemux86.ext4 \--append "root=/dev/vda rw console=ttyS0 debug"} \\
+This series of flags allows QEMU to connect and work with GDB. So, the first part 
+specifies the port (for us: 5500+29 = 5529). This is important because then when we
+get back to the place we run GDB, we would need to specify this port to connect to. 
+Then the next part boots up and runs the kernal.
+kernal. 
+\item{-nographic} \\
+This flag deals with the display. The -nograpic flag allows QEMU to be displayed as
+a command line application instead of in a Window with graphics, which allows us to 
+use this to debug a kernal in Linux. 
+\item{-drive file=core-image--lsb-sdk-qemux86.ext4,if=virtio} \\
+This flag is how you would specify the image to use with the drive. So, in this case
+it is saying core-image--lesb-sdk-qemux86.ext4 is the file for the disk image of the 
+drive. Then the if statement says that the drive is connected with a virtio type.
+\item{-enable-kvm} \\
+This allows it to be compiled with kvm (Kernal based Virtual Machine). Without this
+flag, QEMU would run in user-space. 
+\item{-net none} \\
+The -net is used to create a NIC (Network Interface Card). If this flag was not 
+specified, a NIC would have been created. But since it was specified to 'none', no NIC
+was created.
+\item{-usb} \\
+With this flag USB devices could be connected. So, if the flag had been -use-mouse
+that would indicate a mouse connected via usb. But, since no flag followed, that means
+nothing connected through usb. 
+\item{-localtime} \\
+This flag allows the date to be set accurately.
+\item{--no-reboot} \\ 
+When someone types "reboot" into the QEMU space, it will close and instead of starting
+back up again, as you would expect with reboot, it would just exit.
+\end{itemize}
 
 \section{Given Questions}
 \begin{enumerate}
-\item{What do you think the main point of the assignment is?}
-
-\item{How did you personally approach the problem? Design decisions, algorithm, etx.}
-
-\item{How did you ensure your solution was correct? Testing details, for instance.}
-
-\item{What did you lean?} 
-
+\item{What do you think the main point of the assignment is?} \\
+The main point of this assignment is to get aquainted with booting a kernal onto a VM
+and understanding QEMU. The assignment as a whole only needed a few commands to 
+actually install yocto and boot the kernal; however, getting to the place to 
+understand what the commands mean and what output to look for was tricky, especially 
+because there is no direct output. For us, this meant we had to give it a few tries 
+before we actually felt comfortable with what we were doing, which is important 
+especially for future assignments that would build off of this. \par
+Additionally, this assignment helped us understand QEMU. As we started to look at the 
+different flags, it helped us break down the very large command, which in turn made 
+it more understandable. It was also interesting to look at the QEMU documentation 
+because there is so many flags and options available. \par
+\item{How did you personally approach the problem? Design decisions, algorithm, etx.} \\
+I approached this problem by reading the README.md that yocto provides because there is alot of information about how to build and set up the kernal. It not only shows the 
+commands needed but what each command is doing, which makes it useful to understand 
+what is happending. \par
+\item{How did you ensure your solution was correct? Testing details, for instance.} \\
+I did not know if the we had been building the kernal correctly until I got to the last
+stages of the assignment. At that point when you connect the kernal and the gdb portion 
+together through the port, you can see it running simultaneously and interacting with 
+each other over different terminal sessions. For instance, when I typed in "reboot" 
+into the kernal, gdb told me that a process had stopped, which it did. That is what 
+had indicated to me that it was built and functioning correctly. \par
+\item{What did you lean?} \\
+Going into this assignment, I knew very little to nothing about QEMU and kernal. I 
+still do not know how much I know about them both but I now see how GDB could be 
+utilized as a debugger for the QEMU environment. Additionally, I learned how the 
+flags could be changed deppending on what is necessary. More importantly, I also
+learned how to build and run a kernal, which I feel will be utilized and built on in 
+comming assignments. \par
 \end{enumerate}
 \section{Version Control Log}
 
