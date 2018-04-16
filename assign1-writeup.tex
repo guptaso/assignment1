@@ -55,32 +55,31 @@ stringstyle=\color{orange},
 This series of flags allows QEMU to connect and work with GDB. So, the first part 
 specifies the port (for us: 5500+29 = 5529). This is important because then when we
 get back to the place we run GDB, we would need to specify this port to connect to. 
-Then the next part boots up and runs the kernal.
-kernal. 
+Then the next part boots up and runs the kernal \cite{DOC:1}.
 \item{-nographic} \\
 This flag deals with the display. The -nograpic flag allows QEMU to be displayed as
 a command line application instead of in a Window with graphics, which allows us to 
-use this to debug a kernal in Linux. 
+use this to debug a kernal in Linux \cite{DOC:1}. 
 \item{-drive file=core-image--lsb-sdk-qemux86.ext4,if=virtio} \\
 This flag is how you would specify the image to use with the drive. So, in this case
 it is saying core-image--lesb-sdk-qemux86.ext4 is the file for the disk image of the 
-drive. Then the if statement says that the drive is connected with a virtio type.
+drive. Then the if statement says that the drive is connected with a virtio type \cite{MAN:2}.
 \item{-enable-kvm} \\
 This allows it to be compiled with kvm (Kernal based Virtual Machine). Without this
-flag, QEMU would run in user-space. 
+flag, QEMU would run in user-space \cite{MAN:2}. 
 \item{-net none} \\
 The -net is used to create a NIC (Network Interface Card). If this flag was not 
 specified, a NIC would have been created. But since it was specified to 'none', no NIC
-was created.
+was created \cite{MAN:2}.
 \item{-usb} \\
 With this flag USB devices could be connected. So, if the flag had been -use-mouse
 that would indicate a mouse connected via usb. But, since no flag followed, that means
-nothing connected through usb. 
+nothing connected through usb \cite{DOC:1}. 
 \item{-localtime} \\
-This flag allows the date to be set accurately.
+This flag allows the date to be set accurately \cite{DOC:1}.
 \item{--no-reboot} \\ 
 When someone types "reboot" into the QEMU space, it will close and instead of starting
-back up again, as you would expect with reboot, it would just exit.
+back up again, as you would expect with reboot, it would just exit \cite{DOC:1}.
 \end{itemize}
 
 \section{Given Questions}
@@ -126,6 +125,10 @@ together. We had worked through installing the yocto git repository and then bui
 the kernal. Once that had been set up, we looked at the QEMU flags to see in detail 
 what they were doing and then discussed them so that we would ready to do the write up. 
 Then once we had all that settled, we worked on the write up through the weekend,
-slowly adding parts to the document. 
+slowly adding parts to the document \cite{Doc:1}.
+
+\newpage
+\bibliography{assign1}
+\bibliographystyle{ieeetr}
 
 \end {document}
